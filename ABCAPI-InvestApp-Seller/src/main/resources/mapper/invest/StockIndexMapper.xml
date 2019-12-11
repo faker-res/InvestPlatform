@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.StockIndexMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.StockIndexModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sec_uni_code" property="secUniCode" jdbcType="BIGINT" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="gold_rate" property="goldRate" jdbcType="DECIMAL" />
+    <result column="industry_rate" property="industryRate" jdbcType="DECIMAL" />
+    <result column="month_begin_price" property="monthBeginPrice" jdbcType="DECIMAL" />
+    <result column="month_end_price" property="monthEndPrice" jdbcType="DECIMAL" />
+    <result column="push_month" property="pushMonth" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, sec_uni_code, stock_code, stock_name, gold_rate, industry_rate, month_begin_price, 
+    month_end_price, push_month
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_stock_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_stock_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.StockIndexModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_stock_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="secUniCode != null" >
+        sec_uni_code,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="goldRate != null" >
+        gold_rate,
+      </if>
+      <if test="industryRate != null" >
+        industry_rate,
+      </if>
+      <if test="monthBeginPrice != null" >
+        month_begin_price,
+      </if>
+      <if test="monthEndPrice != null" >
+        month_end_price,
+      </if>
+      <if test="pushMonth != null" >
+        push_month,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="secUniCode != null" >
+        #{secUniCode,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="goldRate != null" >
+        #{goldRate,jdbcType=DECIMAL},
+      </if>
+      <if test="industryRate != null" >
+        #{industryRate,jdbcType=DECIMAL},
+      </if>
+      <if test="monthBeginPrice != null" >
+        #{monthBeginPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="monthEndPrice != null" >
+        #{monthEndPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="pushMonth != null" >
+        #{pushMonth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.StockIndexModel" >
+    update investnew_stock_index
+    <set >
+      <if test="secUniCode != null" >
+        sec_uni_code = #{secUniCode,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="goldRate != null" >
+        gold_rate = #{goldRate,jdbcType=DECIMAL},
+      </if>
+      <if test="industryRate != null" >
+        industry_rate = #{industryRate,jdbcType=DECIMAL},
+      </if>
+      <if test="monthBeginPrice != null" >
+        month_begin_price = #{monthBeginPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="monthEndPrice != null" >
+        month_end_price = #{monthEndPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="pushMonth != null" >
+        push_month = #{pushMonth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

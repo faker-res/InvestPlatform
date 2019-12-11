@@ -1,0 +1,13 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.81.66.27:8001/eureka
+
+sso:
+  url: https://passport.abcfintech.com
+  verifyToken:
+    url: /sso/verifyToken
+    method: post
+
+searchLogPath: logs/searchLog.log

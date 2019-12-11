@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.RoadShowToCompanyMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.RoadShowToCompanyModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="road_show_id" property="roadShowId" jdbcType="BIGINT" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, road_show_id, company_id, company_name, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_road_show_to_company
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_road_show_to_company
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowToCompanyModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_road_show_to_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roadShowId != null" >
+        road_show_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roadShowId != null" >
+        #{roadShowId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowToCompanyModel" >
+    update investnew_road_show_to_company
+    <set >
+      <if test="roadShowId != null" >
+        road_show_id = #{roadShowId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_road_show_to_company
+    (
+      road_show_id,
+      company_id,
+      company_name
+    )
+    values
+    <foreach collection="companys" item="company" separator=",">
+      (
+        #{roadShowId},
+        #{company.companyId},
+        #{company.companyName}
+      )
+    </foreach>
+  </insert>
+
+  <select id="getCompanyListByRoadShowId" parameterType="long" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_road_show_to_company
+    where road_show_id = #{roadShowId}
+  </select>
+
+  <delete id="deleteByRoadShowId" parameterType="long">
+    delete from investnew_road_show_to_company
+    where road_show_id = #{roadShowId}
+  </delete>
+</mapper>

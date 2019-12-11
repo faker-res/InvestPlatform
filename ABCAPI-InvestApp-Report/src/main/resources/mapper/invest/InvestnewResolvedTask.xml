@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.report.dao.invest.InvestnewResolvedTaskMapper">
+
+	<insert id="saveResolvedTask">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into investnew_resolved_task(source_id,process_error)values(#{sourceId},#{processError});
+	</insert>
+	
+	<update id="batchUpdateResolvedTaskStatus">
+      update investnew_resolved_task set status=#{status}
+      <where>
+         <if test="sourceIds != null and sourceIds.size() > 0">
+             source_id in
+	        <foreach collection="sourceIds" item="sourceId" open="(" close=")" separator=",">
+	           #{sourceId}
+	         </foreach>
+         </if>
+      </where>
+  </update>
+  
+</mapper>

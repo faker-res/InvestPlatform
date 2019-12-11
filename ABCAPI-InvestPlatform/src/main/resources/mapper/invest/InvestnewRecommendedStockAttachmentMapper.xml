@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="la.niub.abcapi.invest.platform.dao.invest.IInvestnewRecommendedStockAttachmentDao">
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockAttachmentModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="broker" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="file_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="push_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="status" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, broker, file_url, push_date, status, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_recommended_stock_attachment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from investnew_recommended_stock_attachment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockAttachmentModel">
+    insert into investnew_recommended_stock_attachment (id, user_id, broker, 
+      file_url, push_date, status, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=VARCHAR}, #{broker,jdbcType=VARCHAR}, 
+      #{file_url,jdbcType=VARCHAR}, #{push_date,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{create_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockAttachmentModel">
+    insert into investnew_recommended_stock_attachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="broker != null">
+        broker,
+      </if>
+      <if test="file_url != null">
+        file_url,
+      </if>
+      <if test="push_date != null">
+        push_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="file_url != null">
+        #{file_url,jdbcType=VARCHAR},
+      </if>
+      <if test="push_date != null">
+        #{push_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockAttachmentModel">
+    update investnew_recommended_stock_attachment
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="file_url != null">
+        file_url = #{file_url,jdbcType=VARCHAR},
+      </if>
+      <if test="push_date != null">
+        push_date = #{push_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockAttachmentModel">
+    update investnew_recommended_stock_attachment
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      broker = #{broker,jdbcType=VARCHAR},
+      file_url = #{file_url,jdbcType=VARCHAR},
+      push_date = #{push_date,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectNotHandled" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from investnew_recommended_stock_attachment
+    where status = "0"
+    and not (ISNULL(user_id) or user_id="")
+    and not (ISNULL(broker) or broker="")
+    and not (ISNULL(file_url) or file_url="")
+  </select>
+</mapper>

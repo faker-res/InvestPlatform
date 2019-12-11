@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.RoadShowToBuyerMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.RoadShowToBuyerModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="road_show_id" property="roadShowId" jdbcType="BIGINT" />
+    <result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="buyer_company_id" property="buyerCompanyId" jdbcType="VARCHAR" />
+    <result column="buyer_company_name" property="buyerCompanyName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, road_show_id, buyer_id, buyer_name, buyer_company_id, buyer_company_name, create_time, 
+    update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_road_show_to_buyer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_road_show_to_buyer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowToBuyerModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_road_show_to_buyer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roadShowId != null" >
+        road_show_id,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="buyerName != null" >
+        buyer_name,
+      </if>
+      <if test="buyerCompanyId != null" >
+        buyer_company_id,
+      </if>
+      <if test="buyerCompanyName != null" >
+        buyer_company_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roadShowId != null" >
+        #{roadShowId,jdbcType=BIGINT},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null" >
+        #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerCompanyId != null" >
+        #{buyerCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerCompanyName != null" >
+        #{buyerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowToBuyerModel" >
+    update investnew_road_show_to_buyer
+    <set >
+      <if test="roadShowId != null" >
+        road_show_id = #{roadShowId,jdbcType=BIGINT},
+      </if>
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null" >
+        buyer_name = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerCompanyId != null" >
+        buyer_company_id = #{buyerCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerCompanyName != null" >
+        buyer_company_name = #{buyerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_road_show_to_buyer
+    (
+      road_show_id,
+      buyer_id,
+      buyer_name,
+      buyer_company_id,
+      buyer_company_name
+    )
+    values
+    <foreach collection="list" separator="," item="item">
+      (
+        #{roadShowId},
+        #{item.buyerId},
+        #{item.buyerName},
+        #{item.buyerCompanyId},
+        #{item.buyerCompanyName}
+      )
+    </foreach>
+  </insert>
+
+  <select id="getBuyerListByRoadShowId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM
+      investnew_road_show_to_buyer
+    WHERE road_show_id = #{roadShowId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByRoadShowIdAndUserId">
+    delete from investnew_road_show_to_buyer
+    where
+      road_show_id = #{roadShowId}
+    and buyer_id = #{userId}
+  </delete>
+
+  <delete id="deleteByRoadShowId" parameterType="java.lang.Long">
+    delete from investnew_road_show_to_buyer
+    where road_show_id = #{roadShowId,jdbcType=BIGINT}
+  </delete>
+</mapper>

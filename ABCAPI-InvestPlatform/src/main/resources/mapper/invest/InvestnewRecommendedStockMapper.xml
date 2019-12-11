@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="la.niub.abcapi.invest.platform.dao.invest.IInvestnewRecommendedStockDao">
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sec_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="stock_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="industry" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="broker" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="push_month" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="push_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sec_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="stock_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="industry" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="broker" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="push_month" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="push_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="recommended_reason" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, parent_id, sec_uni_code, stock_code, stock_name, industry, broker, push_month, 
+    push_time
+  </sql>
+  <sql id="Blob_Column_List">
+    recommended_reason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_recommended_stock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_recommended_stock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    insert into investnew_recommended_stock (id, user_id, parent_id, 
+      sec_uni_code, stock_code, stock_name, 
+      industry, broker, push_month, 
+      push_time, recommended_reason)
+    values (#{id,jdbcType=BIGINT}, #{user_id,jdbcType=VARCHAR}, #{parent_id,jdbcType=VARCHAR}, 
+      #{sec_uni_code,jdbcType=BIGINT}, #{stock_code,jdbcType=VARCHAR}, #{stock_name,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{broker,jdbcType=VARCHAR}, #{push_month,jdbcType=VARCHAR}, 
+      #{push_time,jdbcType=TIMESTAMP}, #{recommended_reason,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    insert into investnew_recommended_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="parent_id != null">
+        parent_id,
+      </if>
+      <if test="sec_uni_code != null">
+        sec_uni_code,
+      </if>
+      <if test="stock_code != null">
+        stock_code,
+      </if>
+      <if test="stock_name != null">
+        stock_name,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="broker != null">
+        broker,
+      </if>
+      <if test="push_month != null">
+        push_month,
+      </if>
+      <if test="push_time != null">
+        push_time,
+      </if>
+      <if test="recommended_reason != null">
+        recommended_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_id != null">
+        #{parent_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_uni_code != null">
+        #{sec_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="stock_code != null">
+        #{stock_code,jdbcType=VARCHAR},
+      </if>
+      <if test="stock_name != null">
+        #{stock_name,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="push_month != null">
+        #{push_month,jdbcType=VARCHAR},
+      </if>
+      <if test="push_time != null">
+        #{push_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommended_reason != null">
+        #{recommended_reason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    update investnew_recommended_stock
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_id != null">
+        parent_id = #{parent_id,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_uni_code != null">
+        sec_uni_code = #{sec_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="stock_code != null">
+        stock_code = #{stock_code,jdbcType=VARCHAR},
+      </if>
+      <if test="stock_name != null">
+        stock_name = #{stock_name,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="push_month != null">
+        push_month = #{push_month,jdbcType=VARCHAR},
+      </if>
+      <if test="push_time != null">
+        push_time = #{push_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommended_reason != null">
+        recommended_reason = #{recommended_reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    update investnew_recommended_stock
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      parent_id = #{parent_id,jdbcType=VARCHAR},
+      sec_uni_code = #{sec_uni_code,jdbcType=BIGINT},
+      stock_code = #{stock_code,jdbcType=VARCHAR},
+      stock_name = #{stock_name,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      broker = #{broker,jdbcType=VARCHAR},
+      push_month = #{push_month,jdbcType=VARCHAR},
+      push_time = #{push_time,jdbcType=TIMESTAMP},
+      recommended_reason = #{recommended_reason,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewRecommendedStockModel">
+    update investnew_recommended_stock
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      parent_id = #{parent_id,jdbcType=VARCHAR},
+      sec_uni_code = #{sec_uni_code,jdbcType=BIGINT},
+      stock_code = #{stock_code,jdbcType=VARCHAR},
+      stock_name = #{stock_name,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      broker = #{broker,jdbcType=VARCHAR},
+      push_month = #{push_month,jdbcType=VARCHAR},
+      push_time = #{push_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insertMulti" parameterType="list" >
+    insert into investnew_recommended_stock
+    (user_id, parent_id, sec_uni_code, stock_code, stock_name, industry, recommended_reason, broker, push_month, push_time)
+    values
+    <foreach collection="records" item="item" index="index"
+             open="" separator="," close="">
+      (#{item.user_id,jdbcType=BIGINT},#{item.parent_id,jdbcType=VARCHAR},#{item.sec_uni_code,jdbcType=BIGINT},
+      #{item.stock_code,jdbcType=VARCHAR},#{item.stock_name,jdbcType=VARCHAR},#{item.industry,jdbcType=VARCHAR},
+      #{item.recommended_reason,jdbcType=LONGVARCHAR},#{item.broker,jdbcType=VARCHAR},#{item.push_month,jdbcType=VARCHAR},
+      #{item.push_time,jdbcType=TIMESTAMP})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    industry=VALUES(industry),recommended_reason=VALUES(recommended_reason),push_time=VALUES(push_time)
+  </insert>
+</mapper>

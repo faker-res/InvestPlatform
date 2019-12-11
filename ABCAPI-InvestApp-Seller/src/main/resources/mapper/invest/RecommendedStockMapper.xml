@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.RecommendedStockMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.RecommendedStockModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="sec_uni_code" property="secUniCode" jdbcType="BIGINT" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="push_month" property="pushMonth" jdbcType="VARCHAR" />
+    <result column="push_time" property="pushTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="ResultMapWithBLOBs" type="la.niub.abcapi.invest.seller.model.RecommendedStockModel" extends="BaseResultMap" >
+    <result column="recommended_reason" property="recommendedReason" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, parent_id, sec_uni_code, stock_code, stock_name, industry, broker, push_month, 
+    push_time
+  </sql>
+
+  <sql id="Blob_Column_List" >
+    recommended_reason
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_recommended_stock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_recommended_stock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.RecommendedStockModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_recommended_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="secUniCode != null" >
+        sec_uni_code,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="pushMonth != null" >
+        push_month,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="recommendedReason != null" >
+        recommended_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="secUniCode != null" >
+        #{secUniCode,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="pushMonth != null" >
+        #{pushMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommendedReason != null" >
+        #{recommendedReason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.RecommendedStockModel" >
+    update investnew_recommended_stock
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="secUniCode != null" >
+        sec_uni_code = #{secUniCode,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="pushMonth != null" >
+        push_month = #{pushMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommendedReason != null" >
+        recommended_reason = #{recommendedReason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getCountByParentIdAndDate" resultType="int">
+    SELECT
+      COUNT(DISTINCT stock_code)
+    FROM
+      investnew_recommended_stock
+    WHERE
+      parent_id = #{parent_id}
+    AND push_month = #{push_month}
+    AND industry IS NOT NULL
+    AND industry != ''
+  </select>
+
+  <select id="getIndustryStockCountByParentIdAndDate" resultType="map">
+    SELECT
+      industry,
+      COUNT(DISTINCT stock_code) num
+    FROM
+      investnew_recommended_stock
+    WHERE
+      parent_id = #{parent_id}
+    AND push_month = #{push_month}
+    AND industry IS NOT NULL
+    AND industry != ''
+    GROUP BY industry
+    ORDER BY num DESC, industry
+  </select>
+
+  <select id="getStockListByParentIdAndDateAndKeyword" resultType="map">
+    SELECT
+      stock_code stockCode,
+      stock_name stockName
+    FROM
+      investnew_recommended_stock
+    WHERE
+      parent_id = #{parent_id}
+    AND push_month = #{push_month}
+    <if test="keyword != null and keyword != ''">
+      AND (stock_code LIKE "%"#{keyword}"%" OR stock_name LIKE "%"#{keyword}"%")
+    </if>
+    GROUP BY stock_code, stock_name
+  </select>
+
+  <select id="getDistinctStockCountByParentIdAndDateAndKeyword" resultType="int">
+    SELECT
+      COUNT(DISTINCT stock_code)
+    FROM
+      investnew_recommended_stock
+    WHERE
+      parent_id = #{parent_id}
+    AND push_month = #{push_month}
+    AND industry IS NOT NULL
+    AND industry != ''
+    <if test="keywordList != null and keywordList.size() > 0">
+      AND
+      <foreach collection="keywordList" item="item" open="(" separator="OR" close=")" >
+        stock_code LIKE "%"#{item}"%" OR stock_name LIKE "%"#{item}"%"
+      </foreach>
+    </if>
+  </select>
+
+  <select id="getDistinctStockListByParentIdAndDateAndKeyword" resultType="map">
+    SELECT
+      t1.sec_uni_code secUniCode,
+      t1.stock_code stockCode,
+      t1.stock_name stockName,
+      t1.industry,
+      t1.brokerNum,
+      t2.gold_rate goldRate,
+      t2.industry_rate industryRate,
+      t2.gold_rate - t2.industry_rate excessRate
+    FROM
+      (
+        SELECT
+          sec_uni_code,
+          stock_code,
+          stock_name,
+          industry,
+          COUNT(DISTINCT broker) brokerNum
+        FROM
+          investnew_recommended_stock
+        WHERE
+          parent_id = #{parent_id}
+        AND push_month = #{push_month}
+        AND industry IS NOT NULL
+        AND industry != ''
+        <if test="keywordList != null and keywordList.size() > 0">
+          AND
+          <foreach collection="keywordList" item="item" open="(" separator="OR" close=")" >
+            stock_code LIKE "%"#{item}"%" OR stock_name LIKE "%"#{item}"%"
+          </foreach>
+        </if>
+        GROUP BY stock_code,sec_uni_code,stock_name,industry
+      ) t1
+    LEFT JOIN
+      (
+        SELECT
+          sec_uni_code,
+          gold_rate,
+          industry_rate
+        FROM
+          investnew_stock_index
+        WHERE
+          push_month = #{goldRateMonth}
+      ) t2
+    ON t1.sec_uni_code = t2.sec_uni_code
+    ORDER BY t1.brokerNum DESC, t1.sec_uni_code DESC
+    LIMIT #{offset}, #{limit}
+  </select>
+
+  <select id="getRecommendedReasonByParentIdAndDateAndStockCode" resultType="map">
+    SELECT
+      broker,
+      recommended_reason recommendedReason
+    FROM
+      investnew_recommended_stock
+    WHERE
+      id IN (
+        SELECT
+          MAX(id)
+        FROM
+          investnew_recommended_stock
+        WHERE
+          parent_id = #{parent_id}
+        AND push_month = #{push_month}
+        AND stock_code = #{stock_code}
+        GROUP BY broker
+      )
+  </select>
+
+  <select id="getBrokerListByParentIdAndDateAndKeyword" resultType="map">
+    (
+      SELECT
+        broker
+      FROM
+        investnew_recommended_stock
+      WHERE
+      parent_id = #{parent_id}
+      AND push_month = #{push_month}
+      <if test="keyword != null and keyword != ''">
+        AND broker LIKE "%"#{keyword}"%"
+      </if>
+    )
+    union
+    (
+      select
+       broker
+      from
+        investnew_recommended_stock_rule
+      where
+        parent_id = #{parent_id}
+      <if test="keyword != null and keyword != ''">
+        and broker LIKE "%"#{keyword}"%"
+      </if>
+    )
+    ORDER BY broker asc
+  </select>
+
+  <select id="getAllStockListByParentIdAndDateAndKeyword" resultType="map">
+    SELECT
+      t1.sec_uni_code secUniCode,
+      t1.stock_code stockCode,
+      t1.stock_name stockName,
+      t1.industry,
+      t1.recommended_reason recommendedReason,
+      t1.broker,
+      t2.gold_rate goldRate,
+      t2.industry_rate industryRate,
+      t2.gold_rate - t2.industry_rate excessRate
+    FROM
+      (
+        SELECT
+          sec_uni_code,
+          stock_code,
+          stock_name,
+          industry,
+          recommended_reason,
+          broker
+        FROM
+          investnew_recommended_stock
+        WHERE
+          id IN (
+            SELECT
+              MAX(id)
+            FROM
+              investnew_recommended_stock
+            WHERE
+              parent_id = #{parent_id}
+            AND push_month = #{push_month}
+            AND industry IS NOT NULL
+            AND industry != ''
+            AND broker = #{broker}
+            GROUP BY sec_uni_code, stock_code, stock_name, industry
+          )
+      ) t1
+    LEFT JOIN
+      (
+        SELECT
+          sec_uni_code,
+          gold_rate,
+          industry_rate
+        FROM
+          investnew_stock_index
+        WHERE
+          push_month = #{goldRateMonth}
+      ) t2
+    ON t1.sec_uni_code = t2.sec_uni_code
+    ORDER BY t1.sec_uni_code DESC
+  </select>
+
+  <select id="countBrokerRateV2" parameterType="la.niub.abcapi.invest.seller.model.vo.RecommendedStockBrokerRateVo" resultType="java.util.Map">
+    select
+      distinct t1.broker,
+      t1.sec_uni_code,
+      t1.stock_code,
+      t1.stock_name,
+      t2.gold_rate
+    from
+      investnew_recommended_stock t1
+    join investnew_stock_index t2
+    on t1.stock_code=t2.stock_code
+    where
+      t1.push_month=#{pushMonth}
+    and t2.push_month=#{lastPushMonth}
+    and t1.parent_id=#{parentId}
+    order by t1.id asc
+  </select>
+
+  <select id="getByParentIdAndBrokerAndDate" resultType="map">
+    select
+      t1.sec_uni_code secUniCode,
+      t1.push_month pushMonth,
+      t2.gold_rate goldRate
+    from
+      investnew_recommended_stock t1
+    left join investnew_stock_index t2
+    on t1.push_month = t2.push_month and t1.sec_uni_code = t2.sec_uni_code
+    where
+      t1.parent_id = #{parentId}
+    and t1.broker = #{broker}
+    and t1.push_month between date_format(#{starTime}, '%Y-%m') and date_format(#{endTime}, '%Y-%m')
+  </select>
+
+  <select id="getSevenPushMonthByParentIdAndBroker" resultType="java.lang.String">
+    select
+      distinct push_month
+    from
+      investnew_recommended_stock
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and push_month &lt;= #{maxPushMonth}
+    order by push_month desc
+    limit 7
+  </select>
+
+  <select id="getByParentIdAndBrokerAndPushMonthList" resultType="java.util.Map">
+    select
+      t1.sec_uni_code,
+      t2.gold_rate,
+      t1.push_month
+    from
+      investnew_recommended_stock t1
+    left join investnew_stock_index t2
+    on t1.sec_uni_code = t2.sec_uni_code and t1.push_month = t2.push_month
+    where
+      t1.parent_id = #{parentId}
+    and t1.broker = #{broker}
+    and t1.push_month in
+    <foreach collection="pushMonthList" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+    order by t1.push_month asc
+  </select>
+</mapper>

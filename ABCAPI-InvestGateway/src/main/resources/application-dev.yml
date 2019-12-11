@@ -1,0 +1,31 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.46.230.182:8001/eureka
+
+sso:
+  url: https://passport-dev.abcfintech.com
+  verifyToken:
+    url: /sso/verifyToken
+    method: post
+
+searchLogPath: logs/searchLog.log
+
+ribbon:
+  ConnectTimeout: 5000 #ribbon请求连接的超时时间
+  ReadTimeout: 80000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000
+
+zuul:
+  retryable: true
+  host:
+    connectTimeoutMillis: 5000
+    socketTimeoutMillis: 80000

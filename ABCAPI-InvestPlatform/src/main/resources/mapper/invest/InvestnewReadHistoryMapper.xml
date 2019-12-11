@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="la.niub.abcapi.invest.platform.dao.invest.IInvestnewReadHistoryDao">
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="company_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="author" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="company_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="author" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="data" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, company_id, title, object_id, object_type, author, stock_code, stock_name, 
+    create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    data
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_read_history
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_read_history
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_read_history (user_id, company_id, title, 
+      object_id, object_type, author, 
+      stock_code, stock_name, create_time, 
+      update_time, data)
+    values (#{user_id,jdbcType=VARCHAR}, #{company_id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{object_id,jdbcType=VARCHAR}, #{object_type,jdbcType=CHAR}, #{author,jdbcType=VARCHAR}, 
+      #{stock_code,jdbcType=VARCHAR}, #{stock_name,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{update_time,jdbcType=TIMESTAMP}, #{data,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_read_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="company_id != null">
+        company_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="object_id != null">
+        object_id,
+      </if>
+      <if test="object_type != null">
+        object_type,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="stock_code != null">
+        stock_code,
+      </if>
+      <if test="stock_name != null">
+        stock_name,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+      <if test="data != null">
+        data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="company_id != null">
+        #{company_id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="object_id != null">
+        #{object_id,jdbcType=VARCHAR},
+      </if>
+      <if test="object_type != null">
+        #{object_type,jdbcType=CHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="stock_code != null">
+        #{stock_code,jdbcType=VARCHAR},
+      </if>
+      <if test="stock_name != null">
+        #{stock_name,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    update investnew_read_history
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="company_id != null">
+        company_id = #{company_id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="object_id != null">
+        object_id = #{object_id,jdbcType=VARCHAR},
+      </if>
+      <if test="object_type != null">
+        object_type = #{object_type,jdbcType=CHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="stock_code != null">
+        stock_code = #{stock_code,jdbcType=VARCHAR},
+      </if>
+      <if test="stock_name != null">
+        stock_name = #{stock_name,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="data != null">
+        data = #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    update investnew_read_history
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      company_id = #{company_id,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      object_id = #{object_id,jdbcType=VARCHAR},
+      object_type = #{object_type,jdbcType=CHAR},
+      author = #{author,jdbcType=VARCHAR},
+      stock_code = #{stock_code,jdbcType=VARCHAR},
+      stock_name = #{stock_name,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      data = #{data,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewReadHistoryModel">
+    update investnew_read_history
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      company_id = #{company_id,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      object_id = #{object_id,jdbcType=VARCHAR},
+      object_type = #{object_type,jdbcType=CHAR},
+      author = #{author,jdbcType=VARCHAR},
+      stock_code = #{stock_code,jdbcType=VARCHAR},
+      stock_name = #{stock_name,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="search" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_read_history
+    where user_id = #{userId,jdbcType=VARCHAR}
+      <if test="objectType != null">
+          and object_type = #{objectType,jdbcType=CHAR}
+      </if>
+      <if test="stockCode != null">
+          and stock_code = #{stockCode,jdbcType=VARCHAR}
+      </if>
+      <if test="startTime != null">
+          and create_time >= #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+          and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      order by create_time desc
+      limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+    <select id="searchGroupById" resultMap="ResultMapWithBLOBs">
+        select * from (
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from investnew_read_history
+        where user_id = #{userId,jdbcType=VARCHAR}
+        <if test="objectType != null">
+            and object_type = #{objectType,jdbcType=CHAR}
+        </if>
+        <if test="stockCode != null">
+            and stock_code = #{stockCode,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime != null">
+            and create_time >= #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        order by create_time desc
+        ) a
+        group by object_id
+        order by create_time desc
+        limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </select>
+</mapper>

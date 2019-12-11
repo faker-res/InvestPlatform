@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.RoadShowMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.RoadShowModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="industry_id" property="industryId" jdbcType="VARCHAR" />
+    <result column="industry_name" property="industryName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="seller_name" property="sellerName" jdbcType="VARCHAR" />
+    <result column="seller_company_id" property="sellerCompanyId" jdbcType="VARCHAR" />
+    <result column="seller_company_name" property="sellerCompanyName" jdbcType="VARCHAR" />
+    <result column="road_show_date" property="roadShowDate" jdbcType="DATE" />
+    <result column="activity_start_time" property="activityStartTime" jdbcType="VARCHAR" />
+    <result column="activity_end_time" property="activityEndTime" jdbcType="VARCHAR" />
+    <result column="activity_desc" property="activityDesc" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="meeting_room" property="meetingRoom" jdbcType="VARCHAR" />
+    <result column="road_type" property="roadType" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="buyer_company_id" property="buyerCompanyId" jdbcType="VARCHAR" />
+    <result column="buyer_company_name" property="buyerCompanyName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, theme, industry_id, industry_name, company_id, company_name, seller_id, seller_name, 
+    seller_company_id, seller_company_name, road_show_date, activity_start_time, activity_end_time, 
+    activity_desc, create_time, update_time, user_id, meeting_room, road_type, status,
+    buyer_company_id, buyer_company_name
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_road_show
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_road_show
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_road_show
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="industryName != null" >
+        industry_name,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="sellerId != null" >
+        seller_id,
+      </if>
+      <if test="sellerName != null" >
+        seller_name,
+      </if>
+      <if test="sellerCompanyId != null" >
+        seller_company_id,
+      </if>
+      <if test="sellerCompanyName != null" >
+        seller_company_name,
+      </if>
+      <if test="roadShowDate != null" >
+        road_show_date,
+      </if>
+      <if test="activityStartTime != null" >
+        activity_start_time,
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time,
+      </if>
+      <if test="activityDesc != null" >
+        activity_desc,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="meetingRoom != null" >
+        meeting_room,
+      </if>
+      <if test="roadType != null" >
+        road_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="buyerCompanyId != null" >
+        buyer_company_id,
+      </if>
+      <if test="buyerCompanyName != null" >
+        buyer_company_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="industryName != null" >
+        #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null" >
+        #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCompanyId != null" >
+        #{sellerCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCompanyName != null" >
+        #{sellerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="roadShowDate != null" >
+        #{roadShowDate,jdbcType=DATE},
+      </if>
+      <if test="activityStartTime != null" >
+        #{activityStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityEndTime != null" >
+        #{activityEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDesc != null" >
+        #{activityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingRoom != null" >
+        #{meetingRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="roadType != null" >
+        #{roadType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="buyerCompanyId != null" >
+        #{buyerCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerCompanyName != null" >
+        #{buyerCompanyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowModel" >
+    update investnew_road_show
+    <set >
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="industryName != null" >
+        industry_name = #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null" >
+        seller_id = #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        seller_name = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCompanyId != null" >
+        seller_company_id = #{sellerCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCompanyName != null" >
+        seller_company_name = #{sellerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="roadShowDate != null" >
+        road_show_date = #{roadShowDate,jdbcType=DATE},
+      </if>
+      <if test="activityStartTime != null" >
+        activity_start_time = #{activityStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityEndTime != null" >
+        activity_end_time = #{activityEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDesc != null" >
+        activity_desc = #{activityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingRoom != null" >
+        meeting_room = #{meetingRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="roadType != null" >
+        road_type = #{roadType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="buyerCompanyId != null" >
+        buyer_company_id = #{buyerCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerCompanyName != null" >
+        buyer_company_name = #{buyerCompanyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getRoadShowCountBySellerAndDate" resultType="java.lang.Integer">
+    select
+      count(id)
+    from
+      investnew_road_show t1
+    left join investnew_road_show_to_seller t2
+    on t1.id = t2.road_show_id
+    where
+      t1.seller_company_name = #{sellerCompanyName}
+    and t1.industry_name = #{industry}
+    and t2.seller_name = #{sellerName}
+    and t1.road_show_date between #{startTime} and #{endTime}
+    and status = 0
+    and t1.buyer_company_id = #{buyerCompanyId}
+  </select>
+
+  <select id="getCompanyRoadShowCountBySellerAndDate" resultType="java.util.Map">
+    select
+      t2.company_id,
+      t2.company_name,
+      count(*) count
+    from
+      investnew_road_show t1
+    left join investnew_road_show_to_company t2
+    on t1.id = t2.road_show_id
+    left join investnew_road_show_to_seller t3
+    on t1.id = t3.road_show_id
+    where
+      t1.seller_company_name = #{sellerCompanyName}
+    and t1.industry_name = #{industry}
+    and t3.seller_name = #{sellerName}
+    and t1.road_show_date between #{startTime} and #{endTime}
+    and t2.company_id is not null
+    and t2.company_id != ""
+    and t2.company_name is not null
+    and t2.company_name != ""
+    and t1.status = 0
+    and t1.buyer_company_id = #{buyerCompanyId}
+    group by t2.company_id, t2.company_name
+    order by count desc
+  </select>
+
+  <select id="getRoadShowTimeBySellerAndDate" resultType="java.lang.String">
+    select
+      distinct date_format(road_show_date,'%Y-%m-%d')
+    from
+      investnew_road_show t1
+    left join investnew_road_show_to_company t2
+    on t1.id = t2.road_show_id
+    left join investnew_road_show_to_seller t3
+    on t1.id = t3.road_show_id
+    where
+      t1.seller_company_name = #{sellerCompanyName}
+    and t1.industry_name = #{industry}
+    and t3.seller_name = #{sellerName}
+    and t1.road_show_date between #{startTime} and #{endTime}
+    and t2.company_id = #{companyId}
+    and t2.company_name = #{companyName}
+    and t1.status = 0
+    and t1.buyer_company_id = #{buyerCompanyId}
+  </select>
+
+  <select id="getRoadShowIdsByBroker" resultType="java.lang.Long">
+    select
+      distinct t1.id
+    from investnew_road_show t1
+    left join investnew_road_show_to_buyer t2
+    on t1.id = t2.road_show_id
+    left join investnew_road_show_to_company t3
+    on t1.id = t3.road_show_id
+    left join investnew_road_show_to_seller t4
+    on t1.id = t4.road_show_id
+    <where>
+      t1.road_show_date between #{condition.startTime} and #{condition.endTime}
+    and t1.user_id=#{condition.userId}
+    and t1.status in (0, 1)
+    <if test="condition.companyNames != null and condition.companyNames.size() > 0 ">
+      and t3.company_name in
+      <foreach collection="condition.companyNames" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="condition.industryNames != null and condition.industryNames.size() > 0 ">
+      and t1.industry_name in
+      <foreach collection="condition.industryNames" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="condition.sellerNames != null and condition.sellerNames.size() > 0 ">
+      and t4.seller_name in
+      <foreach collection="condition.sellerNames" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="condition.buyerIds != null and condition.buyerIds.size() > 0 ">
+      and t2.buyer_id in
+      <foreach collection="condition.buyerIds" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    </where>
+    order by t1.road_show_date asc, t1.activity_start_time asc, t1.id asc
+  </select>
+
+  <select id="getRoadShowIdsByFund" resultType="java.lang.Long">
+    select
+      distinct t1.id
+    from investnew_road_show t1
+    <if test="condition.joinTrip == true">
+      inner join investnew_road_show_to_buyer t2
+      on t1.id = t2.road_show_id and t2.buyer_id = #{condition.userId}
+    </if>
+    left join investnew_road_show_to_company t3
+    on t1.id = t3.road_show_id
+    left join investnew_road_show_to_seller t4
+    on t1.id = t4.road_show_id
+    <where>
+      t1.road_show_date between #{condition.startTime} and #{condition.endTime}
+    and t1.buyer_company_id = #{buyerCompanyId}
+    and t1.status = 0
+    <if test="condition.companyNames != null and condition.companyNames.size() > 0 ">
+      and t3.company_name in
+      <foreach collection="condition.companyNames" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="condition.industryNames != null and condition.industryNames.size() > 0 ">
+      and t1.industry_name in
+      <foreach collection="condition.industryNames" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="condition.sellerNames != null and condition.sellerNames.size() > 0 ">
+      and t4.seller_name in
+      <foreach collection="condition.sellerNames" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="condition.sellerCompanyIds != null and condition.sellerCompanyIds.size() > 0 ">
+      and t1.seller_company_id in
+      <foreach collection="condition.sellerCompanyIds" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    </where>
+  </select>
+
+  <select id="getDistinctCompanyList" resultType="java.util.Map">
+    select
+      t1.company_name as companyName
+    from
+      investnew_road_show_to_company t1
+    join investnew_road_show t2
+    on t1.road_show_id = t2.id
+    <where>
+      <if test="sellerCompanyId != null and sellerCompanyId != ''">
+        t2.user_id = #{sellerCompanyId}
+        and t2.status in (0,1)
+      </if>
+      <if test="buyerCompanyId != null and buyerCompanyId != ''">
+        t2.buyer_company_id = #{buyerCompanyId}
+        and t2.status = 0
+      </if>
+    </where>
+    group by t1.company_name order by companyName;
+  </select>
+
+  <select id="getDistinctIndustryList" resultType="java.util.Map">
+    select
+      industry_name industryName
+    from
+      investnew_road_show
+    <where>
+      <if test="sellerCompanyId != null and sellerCompanyId != ''">
+        user_id = #{sellerCompanyId}
+        and status in (0,1)
+      </if>
+      <if test="buyerCompanyId != null and buyerCompanyId != ''">
+        buyer_company_id = #{buyerCompanyId}
+        and status = 0
+      </if>
+    </where>
+    group by industry_name
+  </select>
+
+  <select id="getDistinctSellerList" resultType="java.util.Map">
+    select
+      t2.seller_name sellerName
+    from
+      investnew_road_show t1
+    inner join investnew_road_show_to_seller t2
+    on t1.id = t2.road_show_id
+    <where>
+      <if test="sellerCompanyId != null and sellerCompanyId != ''">
+        t1.user_id = #{sellerCompanyId}
+        and t1.status in (0,1)
+      </if>
+      <if test="buyerCompanyId != null and  buyerCompanyId != ''">
+        t1.buyer_company_id = #{buyerCompanyId}
+        and t1.status = 0
+      </if>
+    </where>
+    group by t2.seller_name
+  </select>
+
+  <select id="getDistinctBuyerList" resultType="java.util.Map">
+    select
+      t2.buyer_id buyerId,
+      t2.buyer_name buyerName
+    from
+      investnew_road_show t1
+    inner join investnew_road_show_to_buyer t2
+    on t1.id = t2.road_show_id
+    where
+      t1.user_id = #{sellerCompanyId}
+    and t1.status in (0, 1)
+    group by t2.buyer_id, t2.buyer_name
+  </select>
+
+  <select id="getDistinctSellerCompanyList" resultType="java.util.Map">
+    select
+      seller_company_id sellerCompanyId,
+      seller_company_name sellerCompanyName
+    from
+      investnew_road_show
+    where
+      buyer_company_id = #{buyerCompanyId}
+    and status = 0
+    group by seller_company_id, seller_company_name
+  </select>
+
+  <select id="getMeetingRoomListByBuyerCompanyId" resultType="java.lang.String">
+    select
+      distinct meeting_room
+    from
+      investnew_road_show
+    where
+      buyer_company_id = #{buyerCompanyId}
+    and status = 0
+  </select>
+
+  <select id="getByTime" resultType="java.util.Map">
+    select
+      t1.theme,
+      t1.industry_name industry,
+      t4.seller,
+      t1.seller_company_name sellerCompany,
+      t1.road_show_date roadShowDate,
+      t1.activity_start_time activityStartTime,
+      t1.activity_end_time activityEndTime,
+      t1.activity_desc activityDesc,
+      t1.meeting_room meetingRoom,
+      t1.road_type roadType,
+      t2.buyer,
+      t2.buyerCompany,
+      t3.company
+    from
+      investnew_road_show t1
+    left join
+    (
+      select
+        road_show_id,
+        group_concat(buyer_name) buyer,
+        group_concat(distinct buyer_company_name) buyerCompany
+      from
+        investnew_road_show_to_buyer
+      group by road_show_id
+    ) t2 on t1.id = t2.road_show_id
+    left join
+    (
+      select
+        road_show_id,
+        group_concat(distinct company_name) company
+      from
+        investnew_road_show_to_company
+      group by road_show_id
+    )t3 on t1.id = t3.road_show_id
+    left join
+    (
+      select
+        road_show_id,
+        group_concat(seller_name) seller
+      from
+        investnew_road_show_to_seller
+      group by road_show_id
+    ) t4 on t1.id = t4.road_show_id
+    where
+      t1.road_show_date between #{startTime} and #{endTime}
+    and t1.status = 0
+    and t1.buyer_company_id = #{buyerCompanyId}
+    order by t1.road_show_date asc, t1.activity_start_time asc, t1.id asc
+  </select>
+</mapper>

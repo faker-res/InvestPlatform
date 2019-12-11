@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.search.dao.invest.BrokerAnalystMapper">
+
+	<select id="getAllAnalysts" resultType="map">
+		select id,broker,analyst from investnew_broker_analyst order by broker asc,analyst asc;
+	</select>
+
+</mapper>

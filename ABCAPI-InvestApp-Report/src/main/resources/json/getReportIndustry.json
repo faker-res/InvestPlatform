@@ -1,0 +1,12 @@
+{
+	"query": "*:*",
+    "filter": ["report_parent_id:$parentId","report_source_type:$sourceType","report_file_type:$fileType"],
+	"facet": {
+		"hotItem": {
+			"type": "terms",
+			"field": "report_industry_type",
+			"limit": 50
+		}
+	},
+	"limit": 0
+}

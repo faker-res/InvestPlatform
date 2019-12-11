@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="la.niub.abcapi.invest.platform.dao.invest.IInvestnewCommentDao">
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="reply_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="object_type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="reply_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, object_id, object_type, reply_id, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from investnew_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    insert into investnew_comment (id, user_id, object_id, 
+      object_type, reply_id, create_time, 
+      update_time, content)
+    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=VARCHAR}, #{object_id,jdbcType=VARCHAR}, 
+      #{object_type,jdbcType=CHAR}, #{reply_id,jdbcType=INTEGER}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{update_time,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    insert into investnew_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="object_id != null">
+        object_id,
+      </if>
+      <if test="object_type != null">
+        object_type,
+      </if>
+      <if test="reply_id != null">
+        reply_id,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="object_id != null">
+        #{object_id,jdbcType=VARCHAR},
+      </if>
+      <if test="object_type != null">
+        #{object_type,jdbcType=CHAR},
+      </if>
+      <if test="reply_id != null">
+        #{reply_id,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    update investnew_comment
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="object_id != null">
+        object_id = #{object_id,jdbcType=VARCHAR},
+      </if>
+      <if test="object_type != null">
+        object_type = #{object_type,jdbcType=CHAR},
+      </if>
+      <if test="reply_id != null">
+        reply_id = #{reply_id,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    update investnew_comment
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      object_id = #{object_id,jdbcType=VARCHAR},
+      object_type = #{object_type,jdbcType=CHAR},
+      reply_id = #{reply_id,jdbcType=INTEGER},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+    update investnew_comment
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      object_id = #{object_id,jdbcType=VARCHAR},
+      object_type = #{object_type,jdbcType=CHAR},
+      reply_id = #{reply_id,jdbcType=INTEGER},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getByObject" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_comment
+    where object_id = #{objectId,jdbcType=VARCHAR}
+      and object_type = #{objectType,jdbcType=VARCHAR}
+      <if test="userId != null">
+          and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      and create_time &lt; #{createTime,jdbcType=TIMESTAMP}
+      order by create_time desc
+      limit #{limit,jdbcType=INTEGER}
+  </select>
+    <select id="getCount" resultType="integer">
+        select count(*) from investnew_comment
+        where object_id = #{objectId,jdbcType=VARCHAR}
+        and object_type = #{objectType,jdbcType=VARCHAR}
+        <if test="userId != null">
+            and user_id = #{userId,jdbcType=VARCHAR}
+        </if>
+        and create_time &lt; #{createTime,jdbcType=TIMESTAMP}
+        order by create_time desc
+        limit #{limit,jdbcType=INTEGER}
+    </select>
+    <select id="selectByIds" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from investnew_comment
+        where id in
+        <foreach collection="commentIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <insert id="insertSelectiveSelectId" parameterType="la.niub.abcapi.invest.platform.model.invest.InvestnewCommentModel">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into investnew_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="user_id != null">
+                user_id,
+            </if>
+            <if test="object_id != null">
+                object_id,
+            </if>
+            <if test="object_type != null">
+                object_type,
+            </if>
+            <if test="reply_id != null">
+                reply_id,
+            </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="update_time != null">
+                update_time,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="user_id != null">
+                #{user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="object_id != null">
+                #{object_id,jdbcType=VARCHAR},
+            </if>
+            <if test="object_type != null">
+                #{object_type,jdbcType=CHAR},
+            </if>
+            <if test="reply_id != null">
+                #{reply_id,jdbcType=INTEGER},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

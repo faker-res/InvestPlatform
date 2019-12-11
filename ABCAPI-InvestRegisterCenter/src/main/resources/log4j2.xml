@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <Filters>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="ERROR_FILE" fileName="${log4j2.appenders.path}/registercenter.error.log" filePattern="${log4j2.appenders.path}/$${date:yyyy-MM}/log4j2-%d{yyyy-MM-dd}-%i.error.gz">
+            <!--<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="128MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+        <RollingFile name="ROLLING_FILE" fileName="${log4j2.appenders.path}/registercenter.log4j2.log" filePattern="${log4j2.appenders.path}/$${date:yyyy-MM}/log4j2-%d{yyyy-MM-dd}-%i.log.gz">
+            <!--<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="128MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="ROLLING_FILE"/>
+        </Root>
+        <Logger name="org" level="error" additivity="true">
+            <AppenderRef ref="ERROR_FILE"/>
+        </Logger>
+        <Logger name="com" level="error" additivity="true">
+            <AppenderRef ref="ERROR_FILE"/>
+        </Logger>
+        <Logger name="la.niub" level="info" additivity="false">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="ROLLING_FILE"/>
+        </Logger>
+        <!--<logger name="la.niub.abcapi.servicedatagraph.dao" level="debug" additivity="false">-->
+            <!--<AppenderRef ref="CONSOLE"/>-->
+            <!--<AppenderRef ref="SQL_FILE"/>-->
+        <!--</logger>-->
+    </Loggers>
+</Configuration>

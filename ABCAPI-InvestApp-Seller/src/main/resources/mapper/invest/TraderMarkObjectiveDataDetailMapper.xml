@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.TraderMarkObjectiveDataDetailMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.TraderMarkObjectiveDataDetailModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="analyst" property="analyst" jdbcType="VARCHAR" />
+    <result column="report_count" property="reportCount" jdbcType="INTEGER" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="attain_days" property="attainDays" jdbcType="DECIMAL" />
+    <result column="attain_probability" property="attainProbability" jdbcType="DECIMAL" />
+    <result column="road_show_count" property="roadShowCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, task_id, broker, industry, analyst, report_count, read_count, attain_days, attain_probability, 
+    road_show_count, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_trader_mark_objective_data_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_trader_mark_objective_data_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkObjectiveDataDetailModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_trader_mark_objective_data_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="analyst != null" >
+        analyst,
+      </if>
+      <if test="reportCount != null" >
+        report_count,
+      </if>
+      <if test="readCount != null" >
+        read_count,
+      </if>
+      <if test="attainDays != null" >
+        attain_days,
+      </if>
+      <if test="attainProbability != null" >
+        attain_probability,
+      </if>
+      <if test="roadShowCount != null" >
+        road_show_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCount != null" >
+        #{reportCount,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null" >
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="attainDays != null" >
+        #{attainDays,jdbcType=DECIMAL},
+      </if>
+      <if test="attainProbability != null" >
+        #{attainProbability,jdbcType=DECIMAL},
+      </if>
+      <if test="roadShowCount != null" >
+        #{roadShowCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkObjectiveDataDetailModel" >
+    update investnew_trader_mark_objective_data_detail
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        analyst = #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCount != null" >
+        report_count = #{reportCount,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null" >
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="attainDays != null" >
+        attain_days = #{attainDays,jdbcType=DECIMAL},
+      </if>
+      <if test="attainProbability != null" >
+        attain_probability = #{attainProbability,jdbcType=DECIMAL},
+      </if>
+      <if test="roadShowCount != null" >
+        road_show_count = #{roadShowCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_trader_mark_objective_data_detail
+    (
+      task_id,
+      broker,
+      industry,
+      analyst,
+      report_count,
+      read_count,
+      attain_days,
+      attain_probability,
+      road_show_count,
+      create_time,
+      update_time
+    )
+    values
+    <foreach collection="list" item="item" open="" close="" separator=",">
+      (
+        #{taskId},
+        #{item.broker},
+        #{item.industry},
+        #{item.analyst},
+        #{item.reportCount},
+        #{item.readCount},
+        #{item.attainDays},
+        #{item.attainProbability},
+        #{item.roadShowCount},
+        #{item.createTime},
+        #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+  
+  <select id="getObjectiveData" resultType="map">
+      select broker,sum(${quota})/count(*) as quota from investnew_trader_mark_objective_data_detail
+      where task_id=#{taskId} group by broker order by quota desc;
+  </select>
+  
+  <select id="getSubjectIndexs" resultType="java.lang.String">
+     select dimension from investnew_trader_mark_statistics_detail where task_id = #{taskId} group by dimension order by dimension;
+  </select>
+  
+  <select id="getSubjectData" resultType="map">
+     select broker,sum(score)/count(*) as quota from investnew_trader_mark_statistics_detail
+     where task_id=#{taskId} and dimension=#{quota}
+     group by broker order by quota desc;
+  </select>
+  
+  <select id="brokerSearchByScore" resultType="map"> 
+     select broker,sum(report_count)*0.3+sum(read_count)*0.7 as cnt from investnew_trader_mark_objective_data_detail
+     where task_id=#{taskId} 
+     <if test="broker != null and broker != ''">
+        and broker like concat('%',#{broker},'%')
+     </if>
+     group by broker order by cnt desc;
+  </select>
+  
+  <select id="getTaskList" resultType="map">
+     select id as taskId,year,quarter,status from investnew_trader_mark_task
+     where parent_id=#{parentId} order  by year asc,quarter asc;
+  </select>
+  
+  <select id="getLastestTask" resultType="java.math.BigInteger">
+    select id as taskId from investnew_trader_mark_task
+    where parent_id=#{parentId} and status=1 order by year desc,quarter desc limit 1;
+  </select>
+  
+  <select id="getIndustries" resultType="map">
+    select industry,count(distinct analyst) as cnt from investnew_trader_mark_statistics_detail 
+    where task_id=#{taskId} and broker=#{broker}
+    group by industry;
+  </select>
+  
+</mapper>

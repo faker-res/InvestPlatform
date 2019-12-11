@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.TraderMarkAnalystTargetMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.TraderMarkAnalystTargetModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="analyst" property="analyst" jdbcType="VARCHAR" />
+    <result column="sec_uni_code" property="secUniCode" jdbcType="BIGINT" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="target_value" property="targetValue" jdbcType="DECIMAL" />
+    <result column="target_date" property="targetDate" jdbcType="DATE" />
+    <result column="target_stock_value" property="targetStockValue" jdbcType="DECIMAL" />
+    <result column="target_comp_date" property="targetCompDate" jdbcType="DATE" />
+    <result column="target_comp_stock_value" property="targetCompStockValue" jdbcType="DECIMAL" />
+    <result column="target_comp_days" property="targetCompDays" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, parent_id, broker, analyst, sec_uni_code, stock_code, stock_name, target_value, target_date, target_stock_value,
+    target_comp_date, target_comp_stock_value, target_comp_days, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_trader_mark_analyst_target
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_trader_mark_analyst_target
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkAnalystTargetModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_trader_mark_analyst_target
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="analyst != null" >
+        analyst,
+      </if>
+      <if test="secUniCode != null" >
+        sec_uni_code,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="targetValue != null" >
+        target_value,
+      </if>
+      <if test="targetDate != null" >
+        target_date,
+      </if>
+      <if test="targetStockValue != null" >
+        target_stock_value,
+      </if>
+      <if test="targetCompDate != null" >
+        target_comp_date,
+      </if>
+      <if test="targetCompStockValue != null" >
+        target_comp_stock_value,
+      </if>
+      <if test="targetCompDays != null" >
+        target_comp_days,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="secUniCode != null" >
+        #{secUniCode,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="targetValue != null" >
+        #{targetValue,jdbcType=DECIMAL},
+      </if>
+      <if test="targetDate != null" >
+        #{targetDate,jdbcType=DATE},
+      </if>
+      <if test="targetStockValue != null" >
+        #{targetStockValue,jdbcType=DECIMAL},
+      </if>
+      <if test="targetCompDate != null" >
+        #{targetCompDate,jdbcType=DATE},
+      </if>
+      <if test="targetCompStockValue != null" >
+        #{targetCompStockValue,jdbcType=DECIMAL},
+      </if>
+      <if test="targetCompDays != null" >
+        #{targetCompDays,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkAnalystTargetModel" >
+    update investnew_trader_mark_analyst_target
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        analyst = #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="secUniCode != null" >
+        sec_uni_code = #{secUniCode,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="targetValue != null" >
+        target_value = #{targetValue,jdbcType=DECIMAL},
+      </if>
+      <if test="targetDate != null" >
+        target_date = #{targetDate,jdbcType=DATE},
+      </if>
+      <if test="targetStockValue != null" >
+        target_stock_value = #{targetStockValue,jdbcType=DECIMAL},
+      </if>
+      <if test="targetCompDate != null" >
+        target_comp_date = #{targetCompDate,jdbcType=DATE},
+      </if>
+      <if test="targetCompStockValue != null" >
+        target_comp_stock_value = #{targetCompStockValue,jdbcType=DECIMAL},
+      </if>
+      <if test="targetCompDays != null" >
+        target_comp_days = #{targetCompDays,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_trader_mark_analyst_target
+    (
+      parent_id,
+      broker,
+      analyst,
+      sec_uni_code,
+      stock_code,
+      stock_name,
+      target_value,
+      target_date,
+      target_stock_value,
+      target_comp_date,
+      target_comp_stock_value,
+      target_comp_days,
+      create_time,
+      update_time
+    )
+    values
+    <foreach collection="list" item="item" open="" close="" separator=",">
+      (
+        #{item.parentId},
+        #{item.broker},
+        #{item.analyst},
+        #{item.secUniCode},
+        #{item.stockCode},
+        #{item.stockName},
+        #{item.targetValue},
+        #{item.targetDate},
+        #{item.targetStockValue},
+        #{item.targetCompDate},
+        #{item.targetCompStockValue},
+        #{item.targetCompDays},
+        #{item.createTime},
+        #{item.updateTime}
+      )
+    </foreach>
+    on duplicate key update
+      update_time = now()
+  </insert>
+
+  <select id="selectByNotComp" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_analyst_target
+    where
+      target_comp_date is null
+    order by id
+    limit #{offset}, #{limit}
+  </select>
+
+  <update id="updateBatch">
+    <foreach collection="list" item="item" open="" close="" separator=";">
+      update investnew_trader_mark_analyst_target
+      <set >
+        <if test="item.parentId != null" >
+          parent_id = #{item.parentId,jdbcType=VARCHAR},
+        </if>
+        <if test="item.broker != null" >
+          broker = #{item.broker,jdbcType=VARCHAR},
+        </if>
+        <if test="item.analyst != null" >
+          analyst = #{item.analyst,jdbcType=VARCHAR},
+        </if>
+        <if test="item.secUniCode != null" >
+          sec_uni_code = #{item.secUniCode,jdbcType=BIGINT},
+        </if>
+        <if test="item.stockCode != null" >
+          stock_code = #{item.stockCode,jdbcType=VARCHAR},
+        </if>
+        <if test="item.stockName != null" >
+          stock_name = #{item.stockName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.targetValue != null" >
+          target_value = #{item.targetValue,jdbcType=DECIMAL},
+        </if>
+        <if test="item.targetDate != null" >
+          target_date = #{item.targetDate,jdbcType=DATE},
+        </if>
+        <if test="item.targetStockValue != null" >
+          target_stock_value = #{item.targetStockValue,jdbcType=DECIMAL},
+        </if>
+        <if test="item.targetCompDate != null" >
+          target_comp_date = #{item.targetCompDate,jdbcType=DATE},
+        </if>
+        <if test="item.targetCompStockValue != null" >
+          target_comp_stock_value = #{item.targetCompStockValue,jdbcType=DECIMAL},
+        </if>
+        <if test="item.targetCompDays != null" >
+          target_comp_days = #{item.targetCompDays,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime != null" >
+          create_time = #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateTime != null" >
+          update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where id = #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkAnalystTargetModel">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_analyst_target
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and analyst = #{analyst}
+    and sec_uni_code = #{secUniCode}
+    and stock_code = #{stockCode}
+    and stock_name = #{stockName}
+    and target_value = #{targetValue}
+    and target_date = #{targetDate}
+    limit 1
+  </select>
+
+  <select id="getAnalystAttainDays" resultType="java.math.BigDecimal">
+    select
+      case
+      when count(*) = 0 then 0
+      else round(ifnull(sum(target_comp_days), 0) / count(*), 2)
+      end
+    from
+      investnew_trader_mark_analyst_target
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and analyst = #{analyst}
+    and target_comp_date is not null
+    and target_comp_date &lt;= #{endTime}
+  </select>
+
+  <select id="getAnalystAttainProbability" resultType="java.math.BigDecimal">
+    select
+      case
+      when count(*) = 0 then 0
+      else round(count(target_comp_days &lt;= 180 or null) / count(*), 2)
+      end
+    from
+      investnew_trader_mark_analyst_target
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and analyst = #{analyst}
+    and target_comp_date is not null
+    and target_comp_date &lt;= #{endTime}
+  </select>
+
+  <select id="selectCountByNotComp" resultType="java.lang.Integer">
+    select
+      count(*)
+    from
+      investnew_trader_mark_analyst_target
+    where
+      target_comp_date is null
+  </select>
+</mapper>

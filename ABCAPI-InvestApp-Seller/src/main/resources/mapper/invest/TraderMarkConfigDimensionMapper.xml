@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.TraderMarkConfigDimensionMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.TraderMarkConfigDimensionModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="dimension" property="dimension" jdbcType="VARCHAR" />
+    <result column="calculate_status" property="calculateStatus" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, dimension, calculate_status, parent_id, create_id, update_id, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_trader_mark_config_dimension
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_trader_mark_config_dimension
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkConfigDimensionModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_trader_mark_config_dimension
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dimension != null and dimension != ''" >
+        dimension,
+      </if>
+      <if test="calculateStatus != null" >
+        calculate_status,
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        parent_id,
+      </if>
+      <if test="createId != null and createId != ''" >
+        create_id,
+      </if>
+      <if test="updateId != null and updateId != ''" >
+        update_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dimension != null and dimension != ''" >
+        #{dimension,jdbcType=VARCHAR},
+      </if>
+      <if test="calculateStatus != null" >
+        #{calculateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null and createId != ''" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null and updateId != ''" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkConfigDimensionModel" >
+    update investnew_trader_mark_config_dimension
+    <set >
+      <if test="dimension != null and dimension != ''" >
+        dimension = #{dimension,jdbcType=VARCHAR},
+      </if>
+      <if test="calculateStatus != null" >
+        calculate_status = #{calculateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null and createId != ''" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null and updateId != ''" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByParentId" parameterType="string" resultType="la.niub.abcapi.invest.seller.model.TraderMarkConfigDimensionModel">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_config_dimension
+    where
+      parent_id = #{parentId}
+  </select>
+
+  <select id="selectByParentIdAndDimension" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_config_dimension
+    <where>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId}
+      </if>
+      <if test="dimension != null and dimension != ''">
+        and dimension = #{dimension}
+      </if>
+      <if test="id != null">
+        and id != #{id}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectDistinctParentId" resultType="java.lang.String">
+    select
+      distinct parent_id
+    from
+      investnew_trader_mark_config_dimension
+  </select>
+</mapper>

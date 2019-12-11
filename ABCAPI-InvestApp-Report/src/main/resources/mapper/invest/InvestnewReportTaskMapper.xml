@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.report.dao.invest.InvestnewReportTaskMapper">
+
+	<select id="getReportTasks" resultType="map">
+		select id,url,status from investnew_report_task where status=0 limit 1000;
+	</select>
+
+	<update id="batchUpdateReportTaskStatus">
+		update investnew_report_task set status=1
+		where id in
+		<foreach collection="reportIds" item="reportId" open="(" close=")" separator=",">
+			#{reportId}
+		</foreach>
+	</update>
+	
+	<insert id="saveReportTask">
+	  <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+	      SELECT LAST_INSERT_ID()
+	  </selectKey>
+	  insert into investnew_report_task(url)values(#{url});
+	</insert>
+	
+</mapper>

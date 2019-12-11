@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.TraderMarkObjectiveDataBrokerMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.TraderMarkObjectiveDataBrokerModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="report_count" property="reportCount" jdbcType="INTEGER" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="attain_days" property="attainDays" jdbcType="DECIMAL" />
+    <result column="attain_probability" property="attainProbability" jdbcType="DECIMAL" />
+    <result column="road_show_count" property="roadShowCount" jdbcType="INTEGER" />
+    <result column="gold_rate" property="goldRate" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, task_id, broker, report_count, read_count, attain_days, attain_probability, road_show_count, gold_rate,
+    create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_trader_mark_objective_data_broker
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_trader_mark_objective_data_broker
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkObjectiveDataBrokerModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_trader_mark_objective_data_broker
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="reportCount != null" >
+        report_count,
+      </if>
+      <if test="readCount != null" >
+        read_count,
+      </if>
+      <if test="attainDays != null" >
+        attain_days,
+      </if>
+      <if test="attainProbability != null" >
+        attain_probability,
+      </if>
+      <if test="roadShowCount != null" >
+        road_show_count,
+      </if>
+      <if test="goldRate != null" >
+        gold_rate,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCount != null" >
+        #{reportCount,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null" >
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="attainDays != null" >
+        #{attainDays,jdbcType=DECIMAL},
+      </if>
+      <if test="attainProbability != null" >
+        #{attainProbability,jdbcType=DECIMAL},
+      </if>
+      <if test="roadShowCount != null" >
+        #{roadShowCount,jdbcType=INTEGER},
+      </if>
+      <if test="goldRate != null" >
+        #{goldRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkObjectiveDataBrokerModel" >
+    update investnew_trader_mark_objective_data_broker
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCount != null" >
+        report_count = #{reportCount,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null" >
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="attainDays != null" >
+        attain_days = #{attainDays,jdbcType=DECIMAL},
+      </if>
+      <if test="attainProbability != null" >
+        attain_probability = #{attainProbability,jdbcType=DECIMAL},
+      </if>
+      <if test="roadShowCount != null" >
+        road_show_count = #{roadShowCount,jdbcType=INTEGER},
+      </if>
+      <if test="goldRate != null" >
+        gold_rate = #{goldRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_trader_mark_objective_data_broker
+    (
+      task_id,
+      broker,
+      report_count,
+      read_count,
+      attain_days,
+      attain_probability,
+      road_show_count,
+      gold_rate,
+      create_time,
+      update_time
+    )
+    values
+    <foreach collection="list" item="item" open="" close="" separator=",">
+      (
+        #{taskId},
+        #{item.broker},
+        #{item.reportCount},
+        #{item.readCount},
+        #{item.attainDays},
+        #{item.attainProbability},
+        #{item.roadShowCount},
+        #{item.goldRate},
+        #{item.createTime},
+        #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectByTaskIdAndBroker" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_objective_data_broker
+    where
+      task_id = #{taskId}
+    and broker = #{broker}
+    limit 1
+  </select>
+
+  <select id="getBrokerListByParentIdAndKeyword" resultType="java.lang.String">
+    select
+      distinct t2.broker
+    from
+      investnew_trader_mark_task t1
+    inner join investnew_trader_mark_objective_data_broker t2
+    on t1.id = t2.task_id
+    where
+      t1.parent_id = #{parentId}
+    <if test="keyword != null and keyword != ''">
+      and t2.broker like "%"#{keyword}"%"
+    </if>
+    order by t2.broker asc
+  </select>
+
+  <select id="getBrokerInfoListByTaskId" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_objective_data_broker
+    where
+      task_id = #{taskId}
+  </select>
+
+  <select id="getBrokerInfoListByTaskIdListAndBroker" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_objective_data_broker
+    where
+      task_id in
+      <foreach collection="taskIdList" item="taskId" open="(" separator="," close=")">
+        #{taskId}
+      </foreach>
+    and broker = #{broker}
+  </select>
+
+  <select id="getBrokerRecentAttainDaysInfoByParentId" resultType="java.util.Map">
+    select
+      t4.broker,
+      t4.attain_days attainDays,
+      t4.attain_probability attainProbability
+    from
+      (
+        select
+          t2.broker,
+          max(t2.task_id) taskId
+        from
+          investnew_trader_mark_task t1
+        inner join investnew_trader_mark_objective_data_broker t2
+        on t1.id = t2.task_id
+        where
+          t1.parent_id = #{parentId}
+        group by t2.broker
+      ) t3
+    inner join investnew_trader_mark_objective_data_broker t4
+    on t3.taskId = t4.task_id and t3.broker = t4.broker
+    order by t4.attain_days desc
+  </select>
+</mapper>

@@ -1,0 +1,16 @@
+{
+	"query": "*:*",
+    "filter": ["report_parent_id:$parentId"],
+	"facet": {
+		"hotItem": {
+			"type": "terms",
+			"field": "$dimension",
+			"limit": 10,
+			"sort": "reportNum desc",
+			"facet": {
+				"reportNum": "unique(id)"
+			}
+		}
+	},
+	"limit": 0
+}

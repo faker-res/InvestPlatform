@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.TraderMarkStatisticsDetailMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.TraderMarkStatisticsDetailModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="analyst" property="analyst" jdbcType="VARCHAR" />
+    <result column="dimension" property="dimension" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DECIMAL" />
+    <result column="calculate_status" property="calculateStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, task_id, broker, industry, analyst, dimension, score, calculate_status, create_time, 
+    update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_trader_mark_statistics_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_trader_mark_statistics_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkStatisticsDetailModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_trader_mark_statistics_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="analyst != null" >
+        analyst,
+      </if>
+      <if test="dimension != null" >
+        dimension,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="calculateStatus != null" >
+        calculate_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="dimension != null" >
+        #{dimension,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="calculateStatus != null" >
+        #{calculateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkStatisticsDetailModel" >
+    update investnew_trader_mark_statistics_detail
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        analyst = #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="dimension != null" >
+        dimension = #{dimension,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="calculateStatus != null" >
+        calculate_status = #{calculateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_trader_mark_statistics_detail
+    (
+      task_id,
+      broker,
+      industry,
+      analyst,
+      dimension,
+      score,
+      calculate_status,
+      create_time,
+      update_time
+    )
+    values
+    <foreach collection="list" item="item" open="" close="" separator=",">
+      (
+        #{item.taskId},
+        #{item.broker},
+        #{item.industry},
+        #{item.analyst},
+        #{item.dimension},
+        #{item.score},
+        #{item.calculateStatus},
+        #{item.createTime},
+        #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="getBrokerSevenTotalScoreByBroker" resultType="map">
+    select
+      t2.task_id taskId,
+      round(ifnull(sum(t2.score), 0) / count(distinct t2.industry, t2.analyst), 2) totalScore
+    from
+      investnew_trader_mark_task t1
+    inner join investnew_trader_mark_statistics_detail t2
+    on t1.id = t2.task_id
+    where
+      t1.parent_id = #{parentId}
+    and t1.status = 1
+    and t2.broker = #{broker}
+    and t2.calculate_status = 0
+    group by t2.task_id
+    order by t1.year desc, t1.quarter desc
+    limit 7
+  </select>
+
+  <select id="getBrokerRankByTaskId" resultType="java.util.Map">
+    select
+      t1.broker,
+      t1.totalScore,
+      t2.report_count reportCount,
+      t2.read_count readCount,
+      t2.road_show_count roadShowCount,
+      t2.attain_days attainDays,
+      t2.attain_probability attainProbability
+    from
+      (
+        select
+          task_id,
+          broker,
+          round(ifnull(sum(score), 0) / count(distinct industry, analyst), 2) totalScore
+        from
+          investnew_trader_mark_statistics_detail
+        where
+          task_id = #{taskId}
+        and calculate_status = 0
+        group by task_id, broker
+      ) t1
+    inner join investnew_trader_mark_objective_data_broker t2
+    on t1.task_id = t2.task_id and t1.broker = t2.broker
+    order by totalScore desc, broker asc
+  </select>
+
+  <select id="getDimensionScoreByTaskIdAndBroker" resultType="java.util.Map">
+    select
+      dimension,
+      round(ifnull(avg(score), 0), 2) score
+    from
+      investnew_trader_mark_statistics_detail
+    where
+      task_id = #{taskId}
+    and broker = #{broker}
+    <if test="calculate">
+      and calculate_status = 0
+    </if>
+    group by dimension
+  </select>
+
+  <select id="getBrokerIndustryAnalystCount" resultType="java.util.Map">
+    select
+      industry,
+      count(distinct analyst) count
+    from
+      investnew_trader_mark_statistics_detail
+    where
+      task_id = #{taskId}
+    and broker = #{broker}
+    group by industry
+    order by industry asc
+  </select>
+
+  <select id="getBrokerDetail" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_statistics_detail
+    where
+      task_id = #{taskId}
+    and broker = #{broker}
+    <if test="industry != null and industry != ''">
+      and industry = #{industry}
+    </if>
+    <if test="analystList != null and analystList.size > 0">
+      and analyst in
+      <foreach collection="analystList" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by industry, analyst, dimension
+  </select>
+
+  <select id="getBrokerAnalyst" resultType="java.util.Map">
+    select
+      distinct industry,
+      analyst
+    from
+      investnew_trader_mark_statistics_detail
+    where
+      task_id = #{taskId}
+    and broker = #{broker}
+    <if test="industry != null and industry != ''">
+      and industry = #{industry}
+    </if>
+    <if test="keyword != null and keyword != ''">
+      and analyst like "%"#{keyword}"%"
+    </if>
+  </select>
+
+  <select id="getBrokerScoreByTaskId" parameterType="long" resultType="java.util.Map">
+    select
+      broker,
+      round(
+        case
+        when count(distinct industry, analyst) = 0 then
+          0
+        else
+          ifnull(sum(score), 0) / count(distinct industry, analyst)
+        end,
+        2
+      ) totalScore
+    from
+      investnew_trader_mark_statistics_detail
+    where
+      task_id = #{taskId}
+    and calculate_status = 0
+    group by broker
+  </select>
+
+  <select id="getBrokerScoreByTaskIdListAndBroker" resultType="java.util.Map">
+    select
+      task_id taskId,
+      round(
+        case
+        when count(distinct industry, analyst) = 0 then
+          0
+        else
+          ifnull(sum(score), 0) / count(distinct industry, analyst)
+        end,
+        2
+      ) totalScore
+    from
+      investnew_trader_mark_statistics_detail
+    where
+      broker = #{broker}
+    and task_id in
+    <foreach collection="taskIdList" item="taskId" open="(" separator="," close=")">
+      #{taskId}
+    </foreach>
+    and calculate_status = 0
+    group by task_id
+  </select>
+
+  <select id="getTaskAverageScoreByTaskIdList" resultType="java.util.Map">
+    select
+      t.taskId,
+      round(avg(t.totalScore), 2) totalScore
+    from
+    (
+        select
+          task_id taskId,
+          broker,
+          round(
+            case
+            when count(distinct industry, analyst) = 0 then
+               0
+            else
+               ifnull(sum(score), 0) / count(distinct industry, analyst)
+            end,
+            2
+          ) totalScore
+        from
+          investnew_trader_mark_statistics_detail
+        where
+          task_id in
+        <foreach collection="taskIdList" item="taskId" open="(" separator="," close=")">
+          #{taskId}
+        </foreach>
+        and calculate_status = 0
+        group by task_id, broker
+    ) t
+    group by t.taskId
+  </select>
+</mapper>

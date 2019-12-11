@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.TraderMarkConfigObjectMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.TraderMarkConfigObjectModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="analyst" property="analyst" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, broker, industry, analyst, parent_id, create_id, update_id, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_trader_mark_config_object
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_trader_mark_config_object
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkConfigObjectModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_trader_mark_config_object
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="broker != null and broker != ''" >
+        broker,
+      </if>
+      <if test="industry != null and industry != ''" >
+        industry,
+      </if>
+      <if test="analyst != null and analyst != ''" >
+        analyst,
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        parent_id,
+      </if>
+      <if test="createId != null and createId != ''" >
+        create_id,
+      </if>
+      <if test="updateId != null and updateId != ''" >
+        update_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="broker != null and broker != ''" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null and industry != ''" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null and analyst != ''" >
+        #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null and createId != ''" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null and updateId != ''" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.TraderMarkConfigObjectModel" >
+    update investnew_trader_mark_config_object
+    <set >
+      <if test="broker != null and broker != ''" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null and industry != ''" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null and analyst != ''" >
+        analyst = #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null and createId != ''" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null and updateId != ''" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectCountByParentId" parameterType="string" resultType="java.lang.Integer">
+    select
+      count(id)
+    from
+      investnew_trader_mark_config_object
+    where
+      parent_id = #{parentId}
+  </select>
+
+  <delete id="deleteByParentId" parameterType="string">
+    delete from investnew_trader_mark_config_object where parent_id = #{parentId}
+  </delete>
+
+  <insert id="insertBatch">
+    insert into investnew_trader_mark_config_object
+    (
+      broker,
+      industry,
+      analyst,
+      parent_id,
+      create_id,
+      update_id,
+      create_time,
+      update_time
+    )
+    values
+    <foreach collection="list" item="item" open="" close="" separator=",">
+      (
+        #{item.broker},
+        #{item.industry},
+        #{item.analyst},
+        #{item.parentId},
+        #{item.createId},
+        #{item.updateId},
+        #{item.createTime},
+        #{item.updateTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectBrokerListByParentIdAndKeyword" resultType="java.util.Map">
+    select
+      distinct broker
+    from
+      investnew_trader_mark_config_object
+    <where>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        and broker like "%"#{keyword}"%"
+      </if>
+    </where>
+    <if test="limit != null and limit > 0">
+      limit #{limit}
+    </if>
+
+  </select>
+
+  <select id="selectByParentIdAndBrokerList" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_trader_mark_config_object
+    <where>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId}
+      </if>
+      <if test="brokerList != null and brokerList.size > 0">
+        and broker in
+        <foreach collection="brokerList" item="broker" open="(" separator="," close=")">
+          #{broker}
+        </foreach>
+      </if>
+    </where>
+    order by id asc
+  </select>
+
+  <select id="selectDistinctParentId" resultType="java.lang.String">
+    select
+      distinct parent_id
+    from
+      investnew_trader_mark_config_object
+  </select>
+
+  <select id="getBrokerIndustryList" resultType="string">
+    select
+      distinct industry
+    from
+      investnew_trader_mark_config_object
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+  </select>
+</mapper>

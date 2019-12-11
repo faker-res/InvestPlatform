@@ -1,0 +1,49 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://118.31.117.206:8001/eureka
+    registerWithEureka: false
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: xwu_nj
+      password: OlzhredLja7s
+      url: jdbc:mysql://120.26.12.152:3306/abc_investnew_dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+    reportor:
+      driverClassName: com.mysql.jdbc.Driver
+      username: ppan_nj
+      password: Uh2kZ9nSmng6
+      url: jdbc:mysql://121.41.26.224:3306/r_reportor?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    host: 101.37.23.1
+    port: 8809
+    password: L09c8AvVDzfq
+    database: 1
+    timeout: 1000
+
+feign:
+  client:
+    platform:
+      name: service-invest-platform
+      url: https://api-invest.modeling.ai/api/platform
+     
+api:
+   uc:
+     getUserInfo: https://uc.abcfintech.com/uc/getUserInfo
+   solr:
+     personal_report:
+       url: http://114.55.72.26:7000/solrweb/personal_report/select
+   news:
+     newsSearch: https://api.analyst.ai/api/compre/news
+     newsDetail: https://api.analyst.ai/api/news/getArticleDetail
+   notice:
+     noticeSearch: https://api.analyst.ai/api/compre/notice
+     noticeDetail: https://filing.analyst.ai/api/filing/detail/baseInfo

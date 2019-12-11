@@ -1,0 +1,116 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://118.31.117.206:8001/eureka
+    registerWithEureka: false
+
+spring:
+  datasource:
+#    reporter:
+#      driverClassName: com.mysql.jdbc.Driver
+#      username: ppan_nj
+#      password: Uh2kZ9nSmng6
+#      url: jdbc:mysql://121.41.26.224:3306/r_reportor?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+#      timeoutSeconds: 30
+#    notice:
+#      driverClassName: com.mysql.jdbc.Driver
+#      username: core_doc
+#      password: Uvowse230w23sr2
+#      url: jdbc:mysql://10.11.255.60:3306/core_doc?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+#      timeoutSeconds: 30
+#    market:
+#      driverClassName: com.mysql.jdbc.Driver
+#      username: xwu_nj
+#      password: OlzhredLja7s
+#      url: jdbc:mysql://118.31.119.65:3306/market_price?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+#      timeoutSeconds: 30
+#    invest:
+#      driverClassName: com.mysql.jdbc.Driver
+#      username: root
+#      password: invest.abc
+#      url: jdbc:mysql://193.112.47.138:3306/abc_invest_research?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+#      timeoutSeconds: 30
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: xwu_nj
+      password: OlzhredLja7s
+      url: jdbc:mysql://120.26.12.152:3306/abc_investnew_dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+  redis:
+#    database: 15
+#    host: 10.11.255.73
+#    port: 6379
+#    password: owCkicLw02ILCwZb
+#    timeout: 1000
+    pool:
+      max-active: 8
+      max-wait: 1000
+      max-idle: 8
+#    default:
+#      host: 10.11.255.108
+#      port: 6380
+#      password:
+#      database: 0
+#      timeout: 1000
+#    market:
+#      host: 10.11.255.108
+#      port: 6380
+#      password:
+#      database: 1
+#      timeout: 1000
+#    industryTime:
+#      host: 10.11.255.108
+#      port: 6380
+#      password:
+#      database: 1
+#      timeout: 1000
+#    industryRealTime:
+#      host: 10.11.255.108
+#      port: 6380
+#      password:
+#      database: 1
+#      timeout: 1000
+#  data:
+#    solr:
+#      personalReport:
+#        zkHost: 114.55.39.209:2181,114.55.39.131:2181,114.55.72.96:2181
+#        zkChroot: /solrcloud/test/personal_report
+#    mongodb:
+#      notice:
+#        uri: mongodb://search:neZu2A&Ug=Fr@10.11.255.122:27017/cr_data
+#        timeout: 30000
+#      stock:
+#        uri: mongodb://10.12.0.30:27017/research
+#        timeout: 30000
+#      modelingRes:
+#        uri: mongodb://modeling_user:LKJHGFDSA@118.178.129.165:3717/modeling_res
+#        timeout: 30000
+
+feign:
+  client:
+    apiBestNews:
+      name: api-bestNews
+      url: http://118.25.39.225:8082/api/mainpage/bestNews
+    sso:
+      name: sso
+      url: https://passport-pre.abcfintech.com
+    modelingInvest:
+      name: modelingInvest
+      url: https://api-invest-pre.modeling.ai
+    investCloud:
+      name: investCloud
+      url: https://api-invest-pre.modeling.ai/api/cloud
+#      url: http://localhost:9800
+    modeling:
+      name: modeling
+      url: https://tour-pre.modeling.ai
+    analyst:
+      name: analyst
+      url: https://api-dev.analyst.ai
+
+file:
+  oss:
+    domain: https://md-resource-upload.oss-cn-hangzhou.aliyuncs.com/
+  local:
+    rootPath: /data/var/file/
+    domain: http://localhost:9900/

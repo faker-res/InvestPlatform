@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.RecommendedStockRuleMapper">
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.RecommendedStockRuleModel">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="broker" jdbcType="VARCHAR" property="broker" />
+    <result column="sheet_name" jdbcType="VARCHAR" property="sheetName" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, broker, sheet_name, parent_id, create_time, update_time, create_id, update_id
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from investnew_recommended_stock_rule
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_recommended_stock_rule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.RecommendedStockRuleModel">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_recommended_stock_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="broker != null">
+        broker,
+      </if>
+      <if test="sheetName != null">
+        sheet_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="broker != null">
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetName != null">
+        #{sheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.RecommendedStockRuleModel">
+    update investnew_recommended_stock_rule
+    <set>
+      <if test="broker != null">
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetName != null">
+        sheet_name = #{sheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getBrokerListByParentIdAndKeyword" resultType="java.util.Map">
+    select
+      distinct broker
+    from
+      investnew_recommended_stock_rule
+    <where>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        and broker like "%"#{keyword}"%"
+      </if>
+    </where>
+    <if test="limit != null and limit > 0">
+      limit #{limit}
+    </if>
+  </select>
+
+  <select id="getRuleListByParentIdAndBrokerList" resultType="la.niub.abcapi.invest.seller.model.RecommendedStockRuleModel">
+    select
+      id,
+      broker,
+      sheet_name
+    from
+      investnew_recommended_stock_rule
+    <where>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId}
+      </if>
+      <if test="brokerList != null and brokerList.size > 0">
+        and broker in
+        <foreach collection="brokerList" open="(" separator="," close=")" item="broker">
+          #{broker}
+        </foreach>
+      </if>
+    </where>
+    order by id asc
+  </select>
+
+  <select id="getByParentIdAndBrokerAndSheetName" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_recommended_stock_rule
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and sheet_name = #{sheetName}
+  </select>
+
+  <select id="getBrokerByParentId" resultType="java.lang.String">
+    select
+      distinct broker
+    from
+      investnew_recommended_stock_rule
+    where
+      parent_id = #{parentId}
+    order by broker
+  </select>
+</mapper>

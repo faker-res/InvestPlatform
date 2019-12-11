@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.seller.dao.invest.RoadShowBrokerAnalystMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.seller.model.RoadShowBrokerAnalystModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="broker" property="broker" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="analyst" property="analyst" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, parent_id, broker, industry, analyst, source, create_time, update_time, create_id, 
+    update_id
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_road_show_broker_analyst
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_road_show_broker_analyst
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowBrokerAnalystModel" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_road_show_broker_analyst
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="broker != null" >
+        broker,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="analyst != null" >
+        analyst,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null" >
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.seller.model.RoadShowBrokerAnalystModel" >
+    update investnew_road_show_broker_analyst
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null" >
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst != null" >
+        analyst = #{analyst,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_road_show_broker_analyst
+    (
+      parent_id,
+      broker,
+      industry,
+      analyst,
+      source,
+      create_time,
+      update_time,
+      create_id,
+      update_id
+    )
+    values
+    <foreach collection="list" item="item" open="" close="" separator=",">
+      (
+        #{item.parentId},
+        #{item.broker},
+        #{item.industry},
+        #{item.analyst},
+        #{item.source},
+        #{item.createTime},
+        #{item.updateTime},
+        #{item.createId},
+        #{item.updateId}
+      )
+    </foreach>
+    on duplicate key update
+      update_time = values(update_time),
+      update_id = values(update_id)
+  </insert>
+
+  <delete id="deleteByParentIdAndSource">
+    delete from investnew_road_show_broker_analyst
+    where parent_id = #{parentId} and source = #{source}
+  </delete>
+
+  <select id="getByParentIdAndBroker" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_road_show_broker_analyst
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and industry = #{industry}
+    and analyst = #{analyst}
+    limit 1
+  </select>
+
+  <select id="getIndustryByParentIdAndBrokerAndKeyword" resultType="java.lang.String">
+    select
+      distinct industry
+    from
+      investnew_road_show_broker_analyst
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    <if test="keyword != null and keyword != ''">
+      and industry like "%"#{keyword}"%"
+    </if>
+    <if test="limit != null">
+      limit #{limit}
+    </if>
+  </select>
+
+  <select id="getAnalystList" resultType="java.util.Map">
+    select
+      id,
+      broker,
+      industry,
+      analyst
+    from
+      investnew_road_show_broker_analyst
+    where
+      parent_id = #{parentId}
+    and broker = #{broker}
+    and industry = #{industry}
+    and analyst != ""
+    <if test="keyword != null and keyword != ''">
+      and analyst like "%"#{keyword}"%"
+    </if>
+  </select>
+
+  <select id="getBrokerIndustryByParentIdAndSource" resultType="java.util.Map">
+    select
+      distinct broker, industry
+    from
+      investnew_road_show_broker_analyst
+    where
+      parent_id = #{parentId}
+    and source = #{source}
+  </select>
+</mapper>

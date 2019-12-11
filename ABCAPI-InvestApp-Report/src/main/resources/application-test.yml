@@ -1,0 +1,49 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.46.225.131:8001/eureka
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: abcin_sys_rw_te
+      password: qQwVfH3rX15L
+      url: jdbc:mysql://10.252.218.51:3306/abc_investnew?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+    reportor:
+      driverClassName: com.mysql.jdbc.Driver
+      username: srnt_sys_rw_pe
+      password: aafe0b66f7ba
+      url: jdbc:mysql://100.114.147.8:6633/r_reportor?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    host: 10.28.145.17
+    port: 8810
+    password: AnuYWKTqF69r
+    database: 1
+    timeout: 1000
+  data:
+    mongodb:
+#      uri: mongodb://invest_sys_rw_te:nC2uuGyX0bxO@10.27.7.73:3717/invest_report
+      uri: mongodb://algorithm:pe7RatR6Na=_@111.200.195.194:27017/cr_data
+    solr:
+      host: http://10.80.239.181:8983/solr
+
+oss:
+  bucketName: invest-report
+  envFolder: pre
+  intranetHost: oss-cn-hangzhou-internal.aliyuncs.com
+  extranetHost: oss-cn-hangzhou.aliyuncs.com
+  accessKeyId: LTAI9Cwz10Cf1UgT
+  accessKeySecret: dwRjeyg1I0VoOxc2PRYzNEXA6DbLbK
+  
+algorithmCenter:
+  callbackUrl: https://api-invest-pre.modeling.ai/api/report/api/callback
+
+api:
+  platformUrl: https://api-invest-pre.modeling.ai/api/platform/

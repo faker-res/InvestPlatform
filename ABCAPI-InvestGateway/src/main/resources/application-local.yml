@@ -1,0 +1,14 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.46.230.182:8001/eureka
+    registerWithEureka: false
+
+sso:
+  url: https://passport-dev.abcfintech.com
+  verifyToken:
+    url: /sso/verifyToken
+    method: post
+
+searchLogPath: logs/searchLog.log

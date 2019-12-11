@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.report.dao.invest.ResearchTaskDomainMapper" >
+
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.report.model.vo.ResearchTaskDomain" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="rp_range" property="rpRange" jdbcType="VARCHAR" />
+    <result column="category_code" property="categoryCode" jdbcType="VARCHAR" />
+    <result column="category_child_code" property="categoryChildCode" jdbcType="VARCHAR" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="file_pages" property="filePages" jdbcType="INTEGER" />
+    <result column="writer" property="writer" jdbcType="VARCHAR" />
+    <result column="write_day" property="writeDay" jdbcType="DATE" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="VARCHAR" />
+    <result column="relate_industry" property="relateIndustry" jdbcType="VARCHAR" />
+    <result column="relate_stock_code" property="relateStockCode" jdbcType="VARCHAR" />
+    <result column="relate_stock_name" property="relateStockName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="source_type" property="sourceType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, title, summary, status, rp_range, category_code, category_child_code, file_url, 
+    file_type, file_pages, writer, write_day, user_id, parent_id, rank, relate_industry, 
+    relate_stock_code, relate_stock_name, create_time, update_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_research_task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getResearchTasks" resultType="map">
+      select <include refid="Base_Column_List"/>
+      from investnew_research_task
+      where status=#{status} limit #{limit};
+  </select>
+  
+  <update id="batchUpdateStatus">
+      update investnew_research_task set status=#{status}
+      <where>
+         <if test="ids != null and ids.size() > 0">
+             id in
+	        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+	           #{id}
+	         </foreach>
+         </if>
+      </where>
+  </update>
+  
+  <select id="getResolvedTask" resultMap="BaseResultMap">
+    select t2.id,t2.title,t2.summary,t2.rp_range,t2.category_code,t2.category_child_code,
+	t2.file_url,t2.file_type,t2.writer,t2.user_id,t2.parent_id,t2.rank,t2.relate_industry,t2.relate_stock_code,t2.relate_stock_name,
+	t2.create_time,t2.source_type
+	from investnew_resolved_task t1
+	join investnew_research_task t2 on t1.source_id=t2.id
+	where t1.process_error in('SUCCESS','SKIPPED','REUSED') and t1.status=#{status}
+	order by t1.source_id desc limit #{limit}
+  </select>
+ 
+  <insert id="insertSelective" parameterType="la.niub.abcapi.invest.report.model.vo.ResearchTaskDomain" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_research_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="rpRange != null" >
+        rp_range,
+      </if>
+      <if test="categoryCode != null" >
+        category_code,
+      </if>
+      <if test="categoryChildCode != null" >
+        category_child_code,
+      </if>
+      <if test="fileUrl != null" >
+        file_url,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="filePages != null" >
+        file_pages,
+      </if>
+      <if test="writer != null" >
+        writer,
+      </if>
+      <if test="writeDay != null" >
+        write_day,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="relateIndustry != null" >
+        relate_industry,
+      </if>
+      <if test="relateStockCode != null" >
+        relate_stock_code,
+      </if>
+      <if test="relateStockName != null" >
+        relate_stock_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="sourceType != null" >
+        source_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="rpRange != null" >
+        #{rpRange,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null" >
+        #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryChildCode != null" >
+        #{categoryChildCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="filePages != null" >
+        #{filePages,jdbcType=INTEGER},
+      </if>
+      <if test="writer != null" >
+        #{writer,jdbcType=VARCHAR},
+      </if>
+      <if test="writeDay != null" >
+        #{writeDay,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="relateIndustry != null" >
+        #{relateIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="relateStockCode != null" >
+        #{relateStockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="relateStockName != null" >
+        #{relateStockName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceType != null" >
+        #{sourceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateReportParentId" parameterType="la.niub.abcapi.invest.report.model.vo.ResearchTaskDomain">
+    update investnew_research_task
+     <set>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="la.niub.abcapi.invest.report.model.vo.ResearchTaskDomain" >
+    update investnew_research_task
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="rpRange != null" >
+        rp_range = #{rpRange,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null" >
+        category_code = #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryChildCode != null" >
+        category_child_code = #{categoryChildCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="filePages != null" >
+        file_pages = #{filePages,jdbcType=INTEGER},
+      </if>
+      <if test="writer != null" >
+        writer = #{writer,jdbcType=VARCHAR},
+      </if>
+      <if test="writeDay != null" >
+        write_day = #{writeDay,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="relateIndustry != null" >
+        relate_industry = #{relateIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="relateStockCode != null" >
+        relate_stock_code = #{relateStockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="relateStockName != null" >
+        relate_stock_name = #{relateStockName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+ 
+</mapper>

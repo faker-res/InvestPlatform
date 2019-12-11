@@ -1,0 +1,76 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.46.230.182:8001/eureka
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: abcin_sys_rw_dev
+      password: gqz2HZSNzCyJ
+      url: jdbc:mysql://10.252.218.51:3306/abc_investnew_dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      initSize: 5
+      minIdle: 1
+      maxActive: 30
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: select 1
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      minEvictableIdleTimeMillis: 300000
+      maxEvictableIdleTimeMillis: 1200000
+      keepAlive: true
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    host: 10.28.145.17
+    port: 8809
+    password: L09c8AvVDzfq
+    database: 1
+    timeout: 1000
+
+traderMark:
+  config:
+    object:
+      excelTemplateUrl: http://md-resource-upload.oss-cn-hangzhou.aliyuncs.com/template.xlsx?Expires=1569728224&OSSAccessKeyId=LTAIQDaphjso2nwb&Signature=IWtcwo4iYaKUku8a2nAfwyimupU%3D
+
+feign:
+  client:
+    platform:
+      name: service-invest-platform
+      url: https://api-invest-dev.modeling.ai/api/platform
+    report:
+      name: service-invest-report
+      url: https://api-invest-dev.modeling.ai/api/report
+
+oss:
+  md-resource:
+    bucket: md-resource-dev
+    endPoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAIQDaphjso2nwb
+    accessKeySecret: 9CxlmoNlnoNqlOPW3fyHfzi5sp7YDc
+  abc-crawler:
+    bucket: abc-crawler
+    endPoint: oss-cn-hangzhou-internal.aliyuncs.com
+    accessKeyId: LTAITN0hCn7KBUzK
+    accessKeySecret: c8SOHjg15bkkW3AxQmbDyyDQA8fnNI
+  abc-parsing:
+    bucket: abc-parsing
+    endPoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAIZ88v6yfPrLvI
+    accessKeySecret: o4NrhusMon3FyRntC08a8Y2qoRwuzp
+  invest-report:
+    bucket: invest-report
+    endPoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAI9Cwz10Cf1UgT
+    accessKeySecret: dwRjeyg1I0VoOxc2PRYzNEXA6DbLbK
+    
+api:
+  reportUrl: https://api-invest-dev.modeling.ai/api/report/
+
+hanlp:
+  root: /niub/data
